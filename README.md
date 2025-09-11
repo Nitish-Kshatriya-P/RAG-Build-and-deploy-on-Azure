@@ -1,0 +1,1 @@
+# RAG Application using AWS(lambda, ECR), Langchain, HuggingFace, Docker and ChromaDB. 
