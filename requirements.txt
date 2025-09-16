@@ -5,4 +5,13 @@ tiktoken
 openai
 bs4
 boto3==1.34.37
-chromadb
+langchain-huggingface
+huggingface_hub
+openai
+#For Vector DB
+pinecone
+pinecone[grpc]
+# For loading pdf
+pypdf
+# For o/p
+pydantic
