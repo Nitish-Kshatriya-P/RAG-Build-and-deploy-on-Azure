@@ -15,3 +15,6 @@ pinecone[grpc]
 pypdf
 # For o/p
 pydantic
+#Front_end
+streamlit
+keyboard
