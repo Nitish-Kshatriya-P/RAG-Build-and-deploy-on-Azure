@@ -8,6 +8,9 @@ load_dotenv()
 HF_TOKEN = os.getenv('HUGGINGFACEHUB_API_TOKEN')
 # question: str, rag_info
 def call_llm(question: str, rag_info):
+        """
+        Main funciton to use the LLM model from huggingface.
+        """
         prompt = f'''
         You are an assistant that answers questions by taking the context provided in rag_info and mostly take context from the given content:
 
@@ -36,6 +39,9 @@ def call_llm(question: str, rag_info):
         return response
 
 def get_response(user_que: str):
+    """
+    Main funciton to get the response from the llm.
+    """
     rag_information = hyd_search_pdf(user_que)
 
     llm_response = call_llm(question = user_que, rag_info= rag_information)

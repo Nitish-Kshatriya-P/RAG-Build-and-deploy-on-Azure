@@ -9,6 +9,9 @@ hide_streamlit_style = """
     </style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html= True)
+"""
+Starting page of the web app.
+"""
 
 import keyboard
 import os
@@ -69,5 +72,9 @@ if start.button("Start", width= 'stretch'):
 
 # For exiting
 if exit.button("Quit App", width= 'stretch'):
-    keyboard.press_and_release('ctrl+w')
-    os._exit(0)
+    try:
+        keyboard.press_and_release('ctrl+w')
+    except Exception as e:
+        print(f"Error: {e}")
+    finally:
+        os._exit(0)

@@ -3,7 +3,9 @@ from QA_System.__init__ import get_index_for_dense, get_index_for_sparse
 
 # Function to perform hybrid search by fetching data from both dense and sparse vector databases in pinecone and combining the results.
 def hybrid_search(query: str):
-
+    """
+    For the given query the both vector dbs are searched and the results are combined.
+    """
     dense_results = get_index_for_dense().search(
         namespace="RAG_application",
         query = {

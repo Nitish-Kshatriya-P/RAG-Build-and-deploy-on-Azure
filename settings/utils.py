@@ -14,6 +14,9 @@ class Op_format(BaseModel):
 
 # Load the pdf document from the data folder.
 def prep_pdf(file_name):
+    """
+    Initializing the whole text splitting or document splitting part of the PDF.
+    """
     loader = PyPDFLoader(f'Data/{file_name}')
     docs = loader.load()
 
@@ -46,6 +49,9 @@ def prep_pdf(file_name):
 
 # Below both the functions are used for inserting the chunks into the dense and sparse vector databases in pinecone.
 def insert_chunks_dense(list_of_chunks: list):
+    """
+    Main funciton to upserts into dense vector db in batches.(1 batch = 95 elements)
+    """
     i = 0
     batch_size = 96
     try:
@@ -65,6 +71,9 @@ def insert_chunks_dense(list_of_chunks: list):
         print("Error: {e}")
     
 def insert_chunks_sparse(list_of_chunks: list):
+    """
+    Main funciton to upserts into sparse vector db in batches.(1 batch = 95 elements)
+    """
     i = 0
     batch_size = 96
     try:
@@ -84,6 +93,9 @@ def insert_chunks_sparse(list_of_chunks: list):
         print("Error: {e}")
     
 def delete_records():
+    """
+    Main funciton to delete records from the vector db(s).
+    """
     get_index_for_dense().delete(delete_all= True, namespace = "RAG_application")
     get_index_for_sparse().delete(delete_all= True, namespace= "RAG_application")
 

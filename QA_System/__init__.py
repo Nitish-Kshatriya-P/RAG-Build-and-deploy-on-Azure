@@ -7,12 +7,16 @@ load_dotenv()
 PINE_API = os.getenv("PINECONE_API_KEY")
 
 def get_index_for_dense():
+    """Initializing dense vector db."""
     pc = Pinecone(api_key=PINE_API)
     dense_index_name = "llmops"
     dense_index = pc.Index(name = dense_index_name)
     return dense_index
 
 def get_index_for_sparse():
+    """
+    Initializing sparse vector db.
+    """
     pc = Pinecone(api_key=PINE_API)
     sparse_index_name = "sparse-vectors"
     sparse_index = pc.Index(name = sparse_index_name)

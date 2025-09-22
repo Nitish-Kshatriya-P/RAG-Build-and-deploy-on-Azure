@@ -1,4 +1,8 @@
-FROM python:3.11
+"""
+Main funciton to dockerize the Web App.
+"""
+
+FROM python:3.11-slim
 
 WORKDIR /RAG_ChatPDF
 
