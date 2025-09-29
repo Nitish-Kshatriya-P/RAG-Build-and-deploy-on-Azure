@@ -1,7 +1,3 @@
-"""
-Main funciton to dockerize the Web App.
-"""
-
 FROM python:3.11-slim
 
 ARG HUGGINGFACEHUB
