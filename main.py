@@ -13,8 +13,6 @@ st.markdown(hide_streamlit_style, unsafe_allow_html= True)
 Starting page of the web app.
 """
 
-import keyboard
-import os
 from pathlib import Path
 import time
 
@@ -54,7 +52,6 @@ def end_choice():
                 st.markdown(file.name.strip(".pdf"))
             time.sleep(1)
         st.success("Copy the file's name to Chat with...")
-        #st.page_link("front-end/Already_uploaded_files.py", label = "Chat", icon = "😎")
         st.page_link("pages/Old_pdfs.py", label= "Click here to Chat!")
     
 st.set_page_config(page_title="ChatPDF", page_icon = ":books:")
@@ -72,9 +69,5 @@ if start.button("Start", width= 'stretch'):
 
 # For exiting
 if exit.button("Quit App", width= 'stretch'):
-    try:
-        keyboard.press_and_release('ctrl+w')
-    except Exception as e:
-        print(f"Error: {e}")
-    finally:
-        os._exit(0)
+    st.warning("Ending Session.")
+    st.stop()
