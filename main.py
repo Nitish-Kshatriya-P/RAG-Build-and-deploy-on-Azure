@@ -12,27 +12,17 @@ st.markdown(hide_streamlit_style, unsafe_allow_html= True)
 """
 Starting page of the web app.
 """
-import keyboard
-import os
 from pathlib import Path
 import time
 
 path = "./Data"
 
-Pathe = Path("./Data/")
+Path(path).mkdir(exist_ok= True)
 
-all_files = [file for file in Pathe.iterdir() if file.is_file()]
+all_files = [file for file in Path(path).iterdir() if file.is_file()]
 
 if "choice" not in st.session_state:
         st.session_state.choice = False
-
-def new_pdf_uploaded():
-    if "upload_pdf" not in st.session_state:
-        st.session_state.upload_pdf = True
-
-def old_pdf_uploaded():
-    if "upload_pdf" not in st.session_state:
-        st.session_state.upload_pdf = True
 
 def pdf_uploaded():
     if "upload_pdf" not in st.session_state:
@@ -62,7 +52,7 @@ st.write("Get your PDF, QnA ready!")
 
 start, exit = st.columns(2, vertical_alignment= 'center', gap= "small")
 
-# For strating the session
+# For starting the session
 if start.button("Start", width= 'stretch'):
     end = st.session_state.choice = True
     if end:
@@ -70,9 +60,5 @@ if start.button("Start", width= 'stretch'):
 
 # For exiting
 if exit.button("Quit App", width= 'stretch'):
-    try: 
-          keyboard.press_and_release("ctrl+w")
-    except Exception as e:
-          print(f"Error: {e}")
-    finally:
-          os.exit(0)
+    st.write("Exiting app...")
+    st.stop()
