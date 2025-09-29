@@ -54,7 +54,7 @@ jobs:
           registry-login-server: ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io 
           registry-username: ${{ secrets.CLIENT_ID }}
           registry-password: ${{ secrets.CLIENT_PASSWORD }}
-          name: deploy-rag
+          name: rag-web-app
           location: Central India
           ports: 80 8051
           environment-variables: >
