@@ -56,7 +56,9 @@ jobs:
           registry-password: ${{ secrets.CLIENT_PASSWORD }}
           name: rag-web-app
           location: Central India
-          ports: 80 8501
+          ports: 8501
+          cpu: 2  
+          memory: 4
           environment-variables: >
             HUGGINGFACEHUB_API_TOKEN=${{ secrets.HUGGINGFACEHUB_API_TOKEN }} 
             PINECONE_API_KEY=${{ secrets.PINECONE_API_KEY }}

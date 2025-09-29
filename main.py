@@ -12,11 +12,12 @@ st.markdown(hide_streamlit_style, unsafe_allow_html= True)
 """
 Starting page of the web app.
 """
-
+import keyboard
+import os
 from pathlib import Path
 import time
 
-path = "C:/Users/Admin/Desktop/LLMops/Data"
+path = "./Data"
 
 Pathe = Path("./Data/")
 
@@ -69,5 +70,9 @@ if start.button("Start", width= 'stretch'):
 
 # For exiting
 if exit.button("Quit App", width= 'stretch'):
-    st.warning("Ending Session.")
-    st.stop()
+    try: 
+          keyboard.press_and_release("ctrl+w")
+    except Exception as e:
+          print(f"Error: {e}")
+    finally:
+          os.exit(0)
