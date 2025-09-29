@@ -42,6 +42,11 @@ jobs:
           build-args:
             HUGGINGFACEHUB=${{ secrets.HUGGINGFACEHUB_API_TOKEN }}
             PINECONE=${{ secrets.PINECONE_API_KEY }}
+
+      - name: Login into azure via azure CLI
+        uses: azure/login@v2
+        with:
+            creds: ${{ secrets.AZURE_CREDS }} 
       
       - name: Deploying in a Azure Container Instance 
         uses: azure/aci-deploy@v1
