@@ -39,9 +39,6 @@ jobs:
           push: true
           tags: ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_INSTANCE_NAME }}:${{ github.sha }}
           file: Dockerfile 
-          build-args:
-            HUGGINGFACEHUB=${{ secrets.HUGGINGFACEHUB_API_TOKEN }}
-            PINECONE=${{ secrets.PINECONE_API_KEY }}
 
       - name: Login into azure via azure CLI
         uses: azure/login@v2
@@ -59,3 +56,7 @@ jobs:
           registry-password: ${{ secrets.CLIENT_PASSWORD }}
           name: deploy-rag
           location: Central India
+          ports: 80 8051
+          environment-variables: >
+            HUGGINGFACEHUB_API_TOKEN = ${{ secrets.HUGGINGFACEHUB_API_TOKEN }} 
+            PINECONE_API_KEY = ${{ secrets.PINECONE_API_KEY }}

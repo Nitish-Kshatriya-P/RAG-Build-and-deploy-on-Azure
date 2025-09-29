@@ -1,17 +1,13 @@
 FROM python:3.11-slim
 
-ARG HUGGINGFACEHUB
-ARG PINECONE
-
-ENV HUGGINGFACEHUB_API_TOKEN=${HUGGINGFACEHUB}
-ENV PINECONE_API_KEY=${PINECONE}
-
 WORKDIR /RAG_ChatPDF
 
-COPY . /RAG_ChatPDF
+COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
+COPY . .
+
 EXPOSE 8501
 
-CMD ["streamlit","run","main.py"]
+CMD ["streamlit", "run", "main.py", "--server.port=8501", "--server.address=0.0.0.0"]
