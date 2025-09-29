@@ -57,8 +57,6 @@ jobs:
           name: rag-web-app
           location: Central India
           ports: 8501
-          cpu: 2  
-          memory: 4
           environment-variables: >
             HUGGINGFACEHUB_API_TOKEN=${{ secrets.HUGGINGFACEHUB_API_TOKEN }} 
             PINECONE_API_KEY=${{ secrets.PINECONE_API_KEY }}
