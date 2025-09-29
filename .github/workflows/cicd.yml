@@ -38,7 +38,7 @@ jobs:
         with: 
           push: true
           tags: ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_INSTANCE_NAME }}:${{ github.sha }}
-          file: LLMOPS/Dockerfile 
+          file: Dockerfile 
           build-args:
             HUGGINGFACEHUB=${{ secrets.HUGGINGFACEHUB_API_TOKEN }}
             PINECONE=${{ secrets.PINECONE_API_KEY }}
