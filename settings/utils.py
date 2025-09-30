@@ -9,7 +9,7 @@ class Op_format(BaseModel):
     id: str
     text: str
     metadata_source: str
-    total_pages : int
+    total_pages: int
     page_no : int
 
 # Load the pdf document from the data folder.
@@ -31,7 +31,7 @@ def prep_pdf(file_name):
         metadata = {"source": "RAG_application", "total_pages": 19, "page_no": 1},
         page_content = "This is a sample document",
     )
-
+    
     list_of_chunks = []
     i = 0
     for chunk in pdf_chunks:
@@ -39,7 +39,7 @@ def prep_pdf(file_name):
             id = f"{chunk.metadata['source']}1_chunk{i+1}",
             text = chunk.page_content,
             metadata_source = chunk.metadata["source"],
-            total_pages= chunk.metadata["total_pages"],
+            total_pages = chunk.metadata.get("total_pages",0),
             page_no = chunk.metadata["page"]
         )
         formatted_obj = output_obj.model_dump()
