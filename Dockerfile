@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 80
 
-CMD ["streamlit", "run", "main.py", "--server.port=80", "--server.address=0.0.0.0", "--server.enableCORS=false", "--server.enableXsrfProtection=false", "--server.headless=true"]
+CMD ["streamlit", "run", "app.py", "--server.port=80", "--server.address=0.0.0.0", "--server.enableCORS=false", "--server.enableXsrfProtection=false", "--server.headless=true"]
