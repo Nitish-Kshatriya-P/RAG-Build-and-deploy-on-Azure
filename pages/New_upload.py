@@ -11,10 +11,6 @@ hide_streamlit_style = """
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html= True)
 
-""" 
-This logic is used for uploading a new file.
-"""
-
 from pathlib import Path
 from llm import get_response, stream_generator
 from main_funcs import start_RAG_pipe

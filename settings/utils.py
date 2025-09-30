@@ -3,7 +3,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 from pydantic import BaseModel
 from QA_System.__init__ import get_index_for_dense, get_index_for_sparse
-
+import logging
 # Custom output format for the chunks to be created from the pdf document.
 class Op_format(BaseModel):
     id: str
@@ -17,6 +17,7 @@ def prep_pdf(file_name):
     """
     Initializing the whole text splitting or document splitting part of the PDF.
     """
+    logging.info("Starting")
     loader = PyPDFLoader(f'Data/{file_name}')
     docs = loader.load()
 
@@ -26,6 +27,7 @@ def prep_pdf(file_name):
     splitter = RecursiveCharacterTextSplitter(chunk_size = ck_size, chunk_overlap = ck_overlap)
     pdf_chunks = splitter.split_documents(docs)
 
+    logging.info("Middle")
 # Format the chunks into a list of dictionaries to be inserted into the vector database.
     doc_form  = Document(
         metadata = {"source": "RAG_application", "total_pages": 19, "page_no": 1},
@@ -34,6 +36,7 @@ def prep_pdf(file_name):
     
     list_of_chunks = []
     i = 0
+    logging.info("End")
     for chunk in pdf_chunks:
         output_obj = Op_format(
             id = f"{chunk.metadata['source']}1_chunk{i+1}",
