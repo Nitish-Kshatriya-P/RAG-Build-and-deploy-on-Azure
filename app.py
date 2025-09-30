@@ -83,12 +83,12 @@ try:
 
     start, exit = st.columns(2, vertical_alignment='center', gap="small")
 
-    if start.button("Start", width='stretch'):
+    if start.button("Start", use_container_width=True):
         logger.info("Start button clicked")
         st.session_state.choice = True
         end_choice()
 
-    if exit.button("Quit App", width='stretch'):
+    if exit.button("Quit App", use_container_width=True):
         logger.info("Quit App button clicked")
         st.warning("Exiting app...")
         st.stop()
