@@ -2,6 +2,7 @@ import streamlit as st
 from pathlib import Path
 import time
 import logging
+import os
 
 st.set_page_config(page_title="ChatPDF", page_icon=":books:")
 
@@ -90,8 +91,9 @@ try:
 
     if exit.button("Quit App", use_container_width=True):
         logger.info("Quit App button clicked")
-        st.warning("Exiting app...")
+        st.warning("Session Ended. Please refresh or click anyhwere")
         st.stop()
+        os.exit(0)
 except Exception as e:
     logger.error(f"Error rendering main page: {e}")
     st.error(f"Error rendering page: {e}")
