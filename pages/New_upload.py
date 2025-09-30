@@ -100,7 +100,7 @@ if st.session_state.QnA == True:
                 st.success("Session ended.")
                 with st.spinner("Be patient while we redirect you!"):
                     delete_records()
-                st.page_link("main.py", label = "Click here to redirect")
+                st.page_link("app.py", label = "Click here to redirect")
             else:
                 st.session_state.messages.append(HumanMessage(user_input))
                 with st.chat_message(name = "User", avatar="😎"):

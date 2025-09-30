@@ -6,7 +6,9 @@ def hybrid_search(query: str):
     """
     For the given query the both vector dbs are searched and the results are combined.
     """
-    dense_results = get_index_for_dense().search(
+    dense = get_index_for_dense()
+    sparse = get_index_for_sparse()
+    dense_results = dense.search(
         namespace="RAG_application",
         query = {
             "inputs": {
@@ -17,7 +19,7 @@ def hybrid_search(query: str):
         fields= ["text","page_no"]
     )
 
-    sparse_results = get_index_for_sparse().search(
+    sparse_results = sparse.search(
         namespace="RAG_application",
         query = {
             "inputs": {
