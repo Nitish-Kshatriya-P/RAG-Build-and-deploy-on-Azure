@@ -3,6 +3,8 @@ from pathlib import Path
 import time
 import logging
 
+st.set_page_config(page_title="ChatPDF", page_icon=":books:")
+
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -19,9 +21,6 @@ hide_streamlit_style = """
     </style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-
-# Set page config
-st.set_page_config(page_title="ChatPDF", page_icon=":books:")
 
 # Directory setup
 path = "./Data"
@@ -98,3 +97,70 @@ except Exception as e:
     st.error(f"Error rendering page: {e}")
 
 logger.info("Streamlit app ready")
+
+import streamlit as st
+import keyboard
+import os
+from pathlib import Path
+import time
+
+# ✅ Page config MUST come before any other Streamlit command
+st.set_page_config(page_title="ChatPDF", page_icon=":books:")
+
+# ✅ Hide unwanted Streamlit UI
+hide_streamlit_style = """
+    <style>
+        #MainMenu {visibility: hidden;}  /* Hides the hamburger menu */
+        footer {visibility: hidden;}    /* Hides the footer */
+        [data-testid="stIconMaterial"] {display: none;}
+        [data-testid="stSidebar"] {display: none;}
+    </style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+# === Your app starts here ===
+st.write("Starting page of the web app.")
+
+path = "C:/Users/Admin/Desktop/LLMops/Data"
+Pathe = Path("./Data/")
+all_files = [file for file in Pathe.iterdir() if file.is_file()]
+
+# --- Session State Helpers ---
+if "choice" not in st.session_state:
+    st.session_state.choice = False
+
+def pdf_uploaded():
+    st.session_state.upload_pdf = True
+
+def started():
+    st.session_state.started = True
+
+# --- Dialog for choosing file ---
+@st.dialog(title="With New or Existing file")
+def end_choice():
+    New_file, Old_file = st.columns(2, vertical_alignment="center")
+    if New_file.button("New File to upload", key="left"):
+        st.switch_page("pages/New_upload.py")
+    if Old_file.button("Check list of available files", key="right"):
+        for file in all_files:
+            with st.chat_message(name="AI", avatar="👾"):
+                st.markdown(file.name.strip(".pdf"))
+            time.sleep(1)
+        st.success("Copy the file's name to Chat with...")
+        st.page_link("pages/Old_pdfs.py", label="Click here to Chat!")
+
+# --- UI ---
+st.title("📚 ChatPDF")
+st.write("Get your PDF, QnA ready!")
+
+start, exit = st.columns(2, vertical_alignment="center", gap="small")
+
+# For starting the session
+if start.button("Start", use_container_width=True):
+    st.session_state.choice = True
+    if st.session_state.choice:
+        end_choice()
+
+# For exiting
+if exit.button("Quit App", use_container_width=True):
+    st.stop()
