@@ -5,58 +5,47 @@ from settings.constants import model_id
 from main_funcs import hyd_search_pdf
 
 load_dotenv()
-HF_TOKEN = os.getenv('HUGGINGFACEHUB_API_TOKEN')
-# question: str, rag_info
-def call_llm(question: str, rag_info):
-        """
-        Main funciton to use the LLM model from huggingface.
-        """
-        prompt = f'''
-        You are an assistant that answers questions by taking the context provided in rag_info and mostly take context from the given content:
+HF_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
 
-        Here's a question: {question}
+client = OpenAI(
+    base_url="https://router.huggingface.co/v1",
+    api_key=HF_TOKEN
+)
 
-        Here's some context for the above question: {rag_info}
+def call_llm(question: str, rag_info: str, stream: bool = True):
+    """
+    Call HuggingFace LLM (OpenAI-compatible) with optional streaming.
+    """
+    prompt = f"""
+    You are an assistant that answers questions by taking the context provided in rag_info and mostly from the given content:
 
-        Answer:
-        '''
+    Question: {question}
 
-        client = OpenAI(
-            base_url="https://router.huggingface.co/v1",
-            api_key=HF_TOKEN  # Ensure HF_TOKEN is defined in your environment or configuration
-        )
+    Context: {rag_info}
 
-        response = client.chat.completions.create(
-            model=model_id,  # Ensure model_id is defined in your environment or configuration
-            messages=[
-                {
-                    "role": "user",
-                    "content": prompt
-                }
-            ],
-            stream=True
-        )
-        return response
+    Answer:
+    """
+
+    response = client.chat.completions.create(
+        model=model_id,
+        messages=[{"role": "user", "content": prompt}],
+        stream=stream
+    )
+    return response
 
 def get_response(user_que: str):
     """
-    Main funciton to get the response from the llm.
+    Wrapper to fetch RAG context and call LLM.
     """
     rag_information = hyd_search_pdf(user_que)
-
-    llm_response = call_llm(question = user_que, rag_info= rag_information)
-
-    return llm_response
+    return call_llm(user_que, rag_information, stream=True)
 
 def stream_generator(stream):
     """
-    This generator function takes an OpenAI stream and yields the text content.
+    Generator that yields content from a streaming response.
     """
     for chunk in stream:
-        # It ensures that 'choices' is not an empty list before proceeding.
         if chunk.choices:
             content = chunk.choices[0].delta.content
-            # This second check ensures the content is not None
             if content:
                 yield content
-
