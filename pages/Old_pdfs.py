@@ -59,8 +59,8 @@ if uploaded_file and st.session_state.already_exists == False:
 if st.session_state.upload_done == True:
     Ask_ques = st.button("Ask Questions")
     if Ask_ques:
-        with st.spinner("Prepping your PDF...", show_time=True):
-            #start_RAG_pipe(destination_file)
+        with st.spinner("Prepping your PDF..."):
+            start_RAG_pipe(destination_file)
             time.sleep(5)
         st.session_state.QnA = True
 

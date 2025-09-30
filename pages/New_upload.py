@@ -17,6 +17,7 @@ This logic is used for uploading a new file.
 
 from pathlib import Path
 from llm import get_response, stream_generator
+from main_funcs import start_RAG_pipe
 from settings.utils import delete_records
 import time
 from langchain_core.messages import HumanMessage, AIMessage
@@ -56,9 +57,9 @@ if uploaded_file is not None and st.session_state.already_exists == False:
 if st.session_state.upload_done == True:
     Ask_ques = st.button("Ask Questions")
     if Ask_ques:
-        with st.spinner("Prepping your PDF...", show_time=True):
-            #start_RAG_pipe(uploaded_file.name)
-            time.sleep(5)
+        with st.spinner("Prepping your PDF..."):
+            start_RAG_pipe(uploaded_file.name)
+            time.sleep(7)
         st.session_state.QnA = True
 
 if st.session_state.QnA == True:
