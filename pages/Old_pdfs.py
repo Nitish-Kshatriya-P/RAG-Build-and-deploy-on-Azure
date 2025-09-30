@@ -1,4 +1,5 @@
 import streamlit as st
+st.set_page_config(page_title= "Old files", page_icon = ":books:")
 
 hide_streamlit_style = """
     <style>
@@ -41,8 +42,6 @@ if "AI_msg" not in st.session_state:
 
 if "already_exists" not in st.session_state:
     st.session_state.already_exists = False
-
-st.set_page_config(page_title= "Old files", page_icon = ":books:")
 
 st.title("📚 ChatPDF")
 st.write("Get your PDF, QnA ready!")
